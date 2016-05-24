@@ -1,0 +1,26 @@
+{
+  "name": "unified-ess",
+  "description": "Unified ESS - HTML5 version",
+  "main": "index.js",
+  "authors": [
+    "Zoe Hu"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "unified",
+    "ess",
+    "html5"
+  ],
+  "homepage": "https://github.com/zoehu19890723/Unified-ESS.git",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "Chart.js": "~1.0.2",
+    "framework7" : "~1.4.0"
+  }
+}
