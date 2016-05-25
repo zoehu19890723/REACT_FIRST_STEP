@@ -10,7 +10,12 @@ import CSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 import lang, { getItem as getLang } from '../common/lang';
 import UserStore from '../stores/UserStore';
 
-let history = [];
+import navForm from '../form/navForm.js';
+
+import BottomNav from '../components/BottomNav/BottomNav.jsx';
+import Header from '../components/Header/Header.jsx';
+
+let tabIndex = 0;
 class AppContainer extends Component {
 
   constructor(props) {
@@ -24,22 +29,33 @@ class AppContainer extends Component {
   }
   handler() {
       let currentHash=this.props.location.pathname;
-      let historyLen = history.length;
-      if(historyLen > 1 && history[historyLen-2]==currentHash){
-          history.pop();
-          return true;
-      }else{
-          history.push(currentHash);
-          return false;
+      if(currentHash.indexOf('inner-')>0){
+          let currentTabIndex = parseInt(this.props.params.index);
+          if(currentTabIndex > tabIndex){
+            tabIndex = currentTabIndex;
+            return false;
+          }else{
+            tabIndex = currentTabIndex;
+            return true;
+          }
       }
   }
 
   render() {
     const routeName = this.props.location.pathname;
+    let currentTabIndex = 0;
+    if(routeName.indexOf('inner-')>0){
+        currentTabIndex = parseInt(this.props.params.index);
+    }
+    const title = navForm[currentTabIndex].text;
       return (
+        <div>
+            <Header title={title}/>
             <CSSTransitionGroup component='div' transitionName={this.handler()?'sliderOut':'slider'}>
                 {React.cloneElement(this.props.children, { key: routeName })}
             </CSSTransitionGroup>
+            <BottomNav items={navForm}/>
+          </div>
       );
   }
 }
